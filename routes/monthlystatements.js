@@ -9,6 +9,7 @@ router.get('/new', isLoggedIn, monthlyStatementsCtrl.new);
 router.get('/:id', monthlyStatementsCtrl.show);
 // POST /movies
 router.post('/', isLoggedIn, monthlyStatementsCtrl.create);
+router.delete('/:id', isLoggedIn, monthlyStatementsCtrl.delete);
 
 
 module.exports = router;

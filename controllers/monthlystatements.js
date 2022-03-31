@@ -3,8 +3,17 @@ const Monthlystatement = require('../models/project2a');
 module.exports = {
     index,
     new: newMonthlyStatement,
-    create
+    create,
+    show, 
+    delete: deleteMonthlyStatement
   };
+
+  function deleteMonthlyStatement(req, res){
+    Monthlystatement.findOneAndDelete(
+     {_id:req.params.id, userRecommending: req.user._id}, function(err){
+        res.redirect('/monthlystatements')
+    })
+  }
 
   function index(req, res) {
       Monthlystatement.find({}, function(err, monthlystatements) {
@@ -34,19 +43,5 @@ function create(req, res) {
     // console.log(monthlystatements);
     // for now, redirect right back to new.ejs
     res.redirect('/monthlystatements');
-  });
-}
-
-function create(req, res) {
-  // convert nowShowing's checkbox of nothing or "on" to boolean
-  req.body.nowShowing = !!req.body.nowShowing;
-  // ensure empty inputs are removed so that model's default values will work
-  for (let key in req.body) {
-    if (req.body[key] === '') delete req.body[key];
-  }
-  const movie = new Movie(req.body);
-  movie.save(function(err) {
-    if (err) return res.redirect('/movies/new');
-    res.redirect(`/movies/${movie._id}`);
   });
 }

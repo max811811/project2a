@@ -9,10 +9,15 @@
     </thead>
     <tbody>
       <% monthlystatements.forEach(function(m) { %>
-      <tr>
-          <td><%= m.content %></td>
-        </tr>
-        <% })  %>
+        <li>
+          <%= m.content %>
+          <form action="/monthlystatements/<%= m.id %>?_method=DELETE"
+            id="delete-form" method="POST">
+            <button type="submit">X</button>
+          </form>
+          <a href="/monthlystatements/<%= m.id %>"><%= m.todo %></a>
+        </li>
+      <% }); %>
     </tbody>
   </table>
 

@@ -3,8 +3,33 @@ const monthlystatements = require('./monthlystatements');
 
 module.exports = {
   create,
-  delete: deleteComment
+  delete: deleteComment,
+  update,
+  edit
 };
+
+function edit(req, res) {
+  console.log(req.params.id)
+//  const getid = MonthlyStatement.foreach((statements) => {
+    console.log(MonthlyStatement)
+    console.log("hi")
+ // })
+
+  MonthlyStatement.findById({})
+  res.render("monthlystatements/edit, ")
+}
+
+function update(req, res) {
+  MonthlyStatement.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, function (err, comment) {
+    console.log(req.body)
+    console.log(req.params.id)
+    if (err)
+      return res.redirect(`/monthlystatements/${user._id}`)
+    res.redirect(`/monthlystatements/${user._id}/edit`)
+  });
+}
+
+
 
 // Include the next parameter - used for error handling in the catch
 function deleteComment(req, res, next) {

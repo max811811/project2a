@@ -1,26 +1,45 @@
 <%- include('../partials/header') %>
 
-  <h1>Monthly Statement List</h1>
+<h2>Comments</h2>
+
+<% if (monthlystatements.length) { %>
   <table>
     <thead>
       <tr>
-        <th>Content</th>
+        <th>User</th>
+        <th>Monthly Statement</th>
+
+        <!-- Add this placeholder heading -->
+        <th></th>
       </tr>
     </thead>
     <tbody>
+      <% let total = 0 %>
       <% monthlystatements.forEach(function(m) { %>
-        <li>
-          <% m.userName %>
-           <a href="/monthlystatements/<%= m.id %>"><%= m.content %></a>
-          <form action="/monthlystatements/<%= m.id %>?_method=DELETE"
-            id="delete-form" method="POST">
-            <button type="submit">X</button>
-          </form>
-          
-        </li>
+        
+        <tr>
+          <td class="comment-user"><%= m.userName %></td>
+          <td><a href="/monthlystatements/<%= m.id %>"><%= m.content %></a></td>
+          <!-- Add this td -->
+          <td> <% console.log("used._id " + m.user) %>
+            <% if (user && user._id.equals(m.user)) { %>
+              <form action="/monthlystatements/<%= m.id %>?_method=DELETE"
+                id="delete-form" method="POST">
+                <button type="submit">X</button>
+              </form>
+            <% } %>
+          </td>
+        </tr>
       <% }); %>
+      <tr>
+        <td colspan="3"></td>
+        
+      </tr>
     </tbody>
   </table>
+<% } else { %>
+  <h5>No Monthly Statement Yet</h5>
+<% } %>
 
 
   <%- include('../partials/footer') %>

@@ -1,2 +1,32 @@
 <a href="/performers/new"	<%- title === 'Add Performer' ? 'class="active"' : '' %>>
     ADD PERFORMER</a>
+
+    <% m.userName %>
+
+
+
+
+
+
+
+    <h1>Monthly Statement List</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Content</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% monthlystatements.forEach(function(m) { %>
+          <li>
+            <h1> <% m.userName %> </h1>
+             <a href="/monthlystatements/<%= m.id %>"><%= m.content %></a>
+            <form action="/monthlystatements/<%= m.id %>?_method=DELETE"
+              id="delete-form" method="POST">
+              <button type="submit">X</button>
+            </form>
+            
+          </li>
+        <% }); %>
+      </tbody>
+    </table>

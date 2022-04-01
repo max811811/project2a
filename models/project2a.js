@@ -16,6 +16,7 @@ const monthlyStatementSchema = new Schema({
     monthlyStatementId: Number,
     userId: Number,
     userName: String,
+    user: {type: Schema.Types.ObjectId, ref: 'User'},
     content: String,
     comments: [commentSchema]
   });

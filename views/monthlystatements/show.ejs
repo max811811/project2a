@@ -1,7 +1,8 @@
 <%- include('../partials/header') %>
 
 <section id="show-page">
-  <div>MonthlyStatment: </div>
+  <h1>MonthlyStatment: </h1>
+  
   <div><%= monthlystatement.content %></div>
   
 <br><br>
@@ -10,7 +11,7 @@
   <form id="add-comment-form" method="POST" action="/monthlystatements/<%= monthlystatement._id %>/comments">
     <label>Comment:</label>
     <textarea name="content"></textarea>
-         <input type="submit" value="Add Review"> 
+         <input type="submit" value="Add Comment"> 
   </form> 
 <% } %>
 

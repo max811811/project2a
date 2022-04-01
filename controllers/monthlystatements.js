@@ -21,12 +21,16 @@ module.exports = {
     });
   }
 
-  function show(req, res) {
-    Monthlystatement.findById(req.params.id)
-      .populate('cast')
-      .exec(function(err, monthlystatement) {
-        // Native MongoDB syntax
+  // function show(req, res) {
+  //   Monthlystatement.findById(req.params.id)
+      
 
+  //     res.render('monthlystatements/:id', { title: 'comments', monthlystatements });
+  // }
+
+  function show(req, res) {
+    Monthlystatement.findById(req.params.id, function(err, monthlystatement) {
+        res.render('monthlystatements/show', {monthlystatement});
       });
   }
 

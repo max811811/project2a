@@ -9,18 +9,19 @@ module.exports = {
 // Include the next parameter - used for error handling in the catch
 function deleteComment(req, res, next) {
     // Note the cool "dot" syntax to query on the property of a subdoc
-    MonthlyStatement.findOne({'reviews._id': req.params.id}).then(function(monthlystatement) {
+    MonthlyStatement.findOne({'comments._id': req.params.id}).then(function(monthlystatement) {
       // Find the review subdoc using the id method on Mongoose arrays
       // https://mongoosejs.com/docs/subdocs.html
-      const review = monthlystatement.comments.id(req.params.id);
+      const comment = monthlystatement.comments.id(req.params.id);
       // Ensure that the review was created by the logged in user
-      if (!review.user.equals(req.user._id)) return res.redirect(`/monthlystatements/${monthlystatement._id}`);
+      if (!comment.user.equals(req.user._id)) return res.redirect(`/monthlystatements/${monthlystatement._id}`);
       // Remove the review using the remove method of the subdoc
       comment.remove();
       // Save the updated movie
       monthlystatement.save().then(function() {
         // Redirect back to the movie's show view
-        res.redirect(`/monthlystatements/${comment._id}`);
+        res.redirect(`/monthlystatements/${monthlystatement._id}`);
+ //       res.redirect(`/monthlystatements/${comment._id}`);
       }).catch(function(err) {
         // Let Express display an error
         return next(err);
@@ -31,7 +32,7 @@ function deleteComment(req, res, next) {
 
 function create(req, res) {
   // Find the movie to embed the review within
-  Monthlystatement.findById(req.params.id, function(err, monthlystatement) {
+  MonthlyStatement.findById(req.params.id, function(err, monthlystatement) {
     // Add the user-centric info to req.body
     req.body.user = req.user._id;
     req.body.userName = req.user.name;

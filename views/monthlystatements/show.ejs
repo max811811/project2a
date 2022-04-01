@@ -10,12 +10,11 @@
   <form id="add-comment-form" method="POST" action="/monthlystatements/<%= monthlystatement._id %>/comments">
     <label>Comment:</label>
     <textarea name="content"></textarea>
-    <input type="text" name="comment">
-        <input type="submit" value="Add Review"> 
-  </form>
+         <input type="submit" value="Add Review"> 
+  </form> 
 <% } %>
 
-<% if (monthlystatement.reviews.length) { %>
+<% if (monthlystatement.comments.length) { %>
   <table>
     <thead>
       <tr>
@@ -32,8 +31,7 @@
       <% monthlystatement.comments.forEach(function(m) { %>
         
         <tr>
-          <td class="comment-user"><%= r.userName %></td>
-          <td><%= m.createdAt.toLocaleDateString() %></td>
+          <td class="comment-user"><%= m.userName %></td>
           <td><%= m.content %></td>
           <!-- Add this td -->
           <td>
